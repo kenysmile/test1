@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="custom_sale_dashboard_kanban" model="ir.ui.view">
+        <field name="name">Dashboard</field>
+        <field name="model">custom.sale.dashboard</field>
+        <field name="arch" type="xml">
+            <kanban create="0" class="oe_background_grey o_kanban_dashboard o_account_kanban" default_order="sequence">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="title"/>
+                <field name="color"/>
+                <field name="kanban_type"/>
+                <field name="figure_type"/>
+                <field name="today_contact_count"/>
+                <field name="today_contact_done_count"/>
+                <field name="kpi_target_count"/>
+                <field name="kpi_rate_count"/>
+                <field name="metabase_iframe"/>
+                <field name="iframe_height"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{kanban_color(0)}" >
+                            <t t-if="record.kanban_type.raw_value == 'figure'">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <h4 class="o_primary"><field name="title"/></h4>
+                                    </div>
+                                </div><div class="container o_kanban_card_content o_visible" style="margin-bottom:0">
+                                    <div class="row">
+                                        <t t-if="record.figure_type.raw_value == 'mission'">
+                                            <div class="col-xs-6 o_kanban_primary_left" name="to_replace_in_sale_crm">
+                                                <button class="btn btn-primary" name="open_pipeline" type="object">Xem nhiệm vụ</button>
+                                            </div>
+                                            <div class="col-xs-6 o_kanban_primary_right">
+                                                <p>Tổng số contact cần gọi trong ngày <b><t t-esc="record.today_contact_count.raw_value"/></b></p>
+                                                <p>Tổng số contact đã gọi trong ngày <b><t t-esc="record.today_contact_done_count.raw_value"/></b></p>
+                                            </div>
+                                        </t>
+                                        <t t-elif="record.figure_type.raw_value == 'kpi_summation'">
+                                            <div class="col-xs-6 o_kanban_primary_left" name="to_replace_in_sale_crm">
+                                                <p>KPI cần đạt <b><t t-esc="record.kpi_target_count.raw_value"/></b></p>
+                                                <p>Phần trăm KPI đạt được <b><t t-esc="record.kpi_rate_count.raw_value"/>%</b></p>
+                                            </div>
+                                            <div class="col-xs-6 o_kanban_primary_right">
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </t>
+                            <t t-elif="record.kanban_type.raw_value == 'graph'">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <h4 class="o_primary"><field name="title"/></h4>
+                                    </div>
+                                </div><div class="container o_kanban_card_content o_visible" style="margin-bottom:0">
+                                    <div class="row">
+                                        <div class="col-xs-12 o_kanban_primary_left" name="to_replace_in_sale_crm">
+                                            <iframe t-att-src="record.metabase_iframe.raw_value"
+                                                    frameborder="0" width="100%"
+                                                    t-att-height="record.iframe_height.raw_value or 450" allowtransparency="1"/>
+                                        </div>
+                                        <div class="col-xs-0 o_kanban_primary_right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="custom_sale_dashboard_form" model="ir.ui.view">
+        <field name="name">Dashboard</field>
+        <field name="model">custom.sale.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="Dashboard">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="Tên báo cáo"/></h1>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="color"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="kanban_type" widget='radio'/>
+
+                            <field name="figure_type" attrs="{'invisible':[('kanban_type','!=','figure')]}" widget='radio'/>
+
+                                <field name="today_contact_count" attrs="{'invisible':['!','&amp;',('kanban_type','=','figure'),('figure_type','=','mission')]}"/>
+                                <field name="today_contact_done_count" attrs="{'invisible':['!','&amp;',('kanban_type','=','figure'),('figure_type','=','mission')]}"/>
+
+                                <field name="kpi_target_count" attrs="{'invisible':['!','&amp;',('kanban_type','=','figure'),('figure_type','=','kpi_summation')]}"/>
+                                <field name="kpi_rate_count" attrs="{'invisible':['!','&amp;',('kanban_type','=','figure'),('figure_type','=','kpi_summation')]}"/>
+                                <field name="metabase_question_id"/>
+                                <field name="iframe_height"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="custom_sale_dashboard_act" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">custom.sale.dashboard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban</field>
+    </record>
+
+    <menuitem id="custom_sale_dashboard_menu" parent="sales_team.menu_base_partner"
+              sequence="0" name="Dashboard" action="custom_sale_dashboard_act"/>
+
+    <!--For setting-->
+
+    <record id="custom_sale_dashboard_setting_act" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">custom.sale.dashboard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="custom_sale_dashboard_setting_menu" parent="sales_team.menu_sale_config"
+              sequence="100" name="Dashboard" action="custom_sale_dashboard_setting_act"/>
+</odoo>

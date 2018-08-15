@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_config_setting_inherit" model="ir.ui.view">
+        <field name="name">Sale setting config</field>
+        <field name="model">sale.config.settings</field>
+        <field name="inherit_id" ref="sales_team.view_sale_config_settings"/>
+        <field name="arch" type="xml">
+            <div id="main" position="inside">
+                <group string="Metabase Setting">
+                    <div>
+                        <div>
+                            <label for="metabase_site_url"/>
+                            <field name="metabase_site_url"/>
+                        </div>
+                        <div>
+                            <label for="metabase_secret_key"/>
+                            <field name="metabase_secret_key"/>
+                        </div>
+                    </div>
+                </group>
+            </div>
+        </field>
+    </record>
+</odoo>

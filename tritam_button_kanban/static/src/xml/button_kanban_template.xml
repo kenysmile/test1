@@ -1,0 +1,23 @@
+<templates xml:space="preserve">
+<t t-name="KanbanView.buttons.2">
+    <div>
+         <t t-if="op_create != 0">
+            <button type="button" class="btn btn-primary btn-sm o-kanban-button-new" accesskey="c">
+                <t t-esc="widget.options.create_text || _t('Create')"/>
+            </button>
+        </t>
+        <button type="button" id = "button_new_contact" class="btn btn-primary btn-sm" >
+           Nhận contact mới
+        </button>
+        <button type="button" id = "button_re_use" class="btn btn-primary btn-sm" >
+           Nhận contact tái sử dụng
+        </button>
+        <button type="button" id = "button_re_contact" class="btn btn-primary btn-sm" >
+           Nhận contact tái ký
+        </button>
+        <button type="button" id = "button_sp" class="btn btn-primary btn-sm" >
+           Nhận contact cần chăm sóc
+        </button>
+    </div>
+</t>
+</templates>

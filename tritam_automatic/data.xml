@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1" >
+        <record model="res.automatic.share.settings" id="module_res_automatic_share_settings">
+            <field name="conf_new_contact">1</field>
+            <field name="conf_re_use">1</field>
+            <field name="conf_re_sign">1</field>
+        </record>
+    </data>
+</openerp>

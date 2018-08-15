@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_order_report_all_revenue" model="ir.actions.act_window">
+        <field name="name">Sales Analysis</field>
+        <field name="res_model">sale.report.revenue</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="view_id"></field>  <!-- force empty -->
+        <field name="help">This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application.</field>
+    </record>
+
+    <menuitem name="Sales revenue" action="action_order_report_all_revenue" id="menu_report_product_all_revunue" parent="sales_team.menu_sale_report" sequence="11"/>
+
+</odoo>

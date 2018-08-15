@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="search_view_inherit_res_partner" model="ir.ui.view">
+        <field name="name">Search View Res Partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Sai số điện thoại is set" name="phone_invalid_is_set"
+                        domain="[('phone_invalid', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="search_view_inherit_crm_lead" model="ir.ui.view">
+        <field name="name">Search View Crm Lead</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter string="Sai số điện thoại is set" name="phone_invalid_is_set"
+                        domain="[('phone_invalid', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

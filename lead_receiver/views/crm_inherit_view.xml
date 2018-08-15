@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="tritam_crm_act" model="ir.actions.act_window">
+            <field name="name">CRM</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="crm_inherit_form" model="ir.ui.view">
+            <field name="name">CRM view</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="landing_page_ip_address" />
+                    <field name="landing_page_device" />
+                    <field name="landing_page_referral_source" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
